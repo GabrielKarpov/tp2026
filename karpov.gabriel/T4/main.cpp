@@ -28,11 +28,15 @@ int main() {
     double factorInput;
     std::cin >> factorInput;
     if (std::cin.fail()) {
-        std::cerr << "ERROR. Wrong data format\n";
-        return 1;
+        if (std::cin.eof()) {
+            factorInput = 1.0;
+        } else {
+            std::cerr << "ERROR. Wrong data format\n";
+            return 1;
+        }
     }
     for (auto& s : shapes)
-        s->scale(2);
+        s->scale(factorInput);
     std::cout << "after:" << std::endl;
     for (const auto& s : shapes) {
         Point c = s->getCenter();
